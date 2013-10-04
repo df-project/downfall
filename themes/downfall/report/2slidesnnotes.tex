@@ -1,0 +1,17 @@
+{{^chapter}}
+{{#image1}}
+{{=<% %>=}}
+\begin{center}
+  \includegraphics{<%image1%>.png}
+\end{center}
+<%={{ }}=%>
+{{/image1}}
+{{/chapter}}
+
+{{#chapter}}
+{{=<% %>=}}
+\chapterImage{<%image1%>.png}
+<%={{ }}=%>
+{{/chapter}}
+
+{{{notes}}}

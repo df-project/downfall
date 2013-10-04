@@ -1,0 +1,26 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: True
+numbers: True
+transition: fade
+report: 2slides # Available modes are : 1slide, 2slides, 2slidesnnotes,
+                # slidentext, 3slides, 3slidesnnotes, 6slides, custom
+
+# slide 1
+---
+type: cover
+title: Other presentation
+
+# slide 2
+---
+type: shout
+text: Slide from external Prez
+
+# slide 3
+---
+type: code
+text: A portion of source code
+file: ^repository/code.py
+linenumber: True

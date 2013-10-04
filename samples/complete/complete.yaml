@@ -1,0 +1,151 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: True
+numbers: True
+transition: fade
+tableofcontents: True # Omit if you don't want to display it
+index: True # Omit if you don't want to display it
+report: 2slidesnnotes # Available modes are : 1slide, 2slides, 2slidesnnotes
+                      # Available soon :slidentext, 3slides, 3slidesnnotes, 
+                      # 6slides, custom
+
+# Optional
+author: Tristan Colombo
+twitter: TristanColombo
+mail: tristan.colombo@info2dev.com
+created: 24/06/2013
+modified: 24/06/2013
+tags: downfall, complete
+
+# slide 1
+---
+type: cover
+title: Complete presentation sample
+
+# slide 2
+---
+type: shout
+text: Welcome in DownFall!
+report: hide # Hide the slide in the report
+             # Use hidenotes to hide only notes
+
+# Slide 3
+---
+type: simplelist
+text: List sample
+list: |
+  First bullet
+  Second bullet
+  Third bullet
+
+# Slide 4
+---
+type: animatedlist
+text: Animated list sample
+list: |
+  First bullet
+  Second bullet
+  Third bullet
+
+# Slide 5
+---
+type: fullimage
+text: Image in full screen
+centertext: True
+positionbottom: False
+image: interfaces.png
+roundcorner: True
+# background-text: False
+# fullline: True
+
+# Slide 6
+---
+type: centerimage
+text: Centered image without credits
+image: linux.png
+
+# Slide 7
+---
+type: centerimage
+text: Centered image with credits
+image: linux.png
+credit_link: http://www.lewing.org
+credit: Image by Larry Ewing
+
+# Slide 8
+---
+type: centerimage
+text: Centered image with credits and shadow
+image: linux.png
+shadow: True
+credit_link: http://www.lewing.org
+credit: Image by Larry Ewing
+
+# Slide 9
+---
+type: centerimage
+text: Centered image with credits, shadow and frame
+image: linux.png
+shadow: True
+frame: True
+credit_link: http://www.lewing.org
+credit: Image by Larry Ewing
+
+# Slide 10
+---
+type: centerimage
+text: Centered image with credits, shadow, frame and animated
+image: linux.png
+shadow: True
+frame: True
+anime: True
+credit_link: http://www.lewing.org
+credit: Image by Larry Ewing
+
+# Slide 11
+---
+type: rightimage_text
+text: Image on the right with credits, shadow, frame
+image: linux.png
+text_near_image: |
+  This is the text
+  and it is on the left of the image
+shadow: True
+frame: True
+credit_link: http://www.lewing.org
+credit: Image by Larry Ewing
+
+# Slide 12
+---
+type: leftimage_text
+text: Image on the left with shadow
+image: linux.png
+text_near_image: |
+  This is the text
+  and it is on the right of the image
+shadow: True
+frame: True
+
+# Slide 13
+---
+type: code
+text: A portion of source code
+file: ^code.py
+lineNumber: True
+
+# slide
+---
+type: shout
+text: Welcome in DownFall 2!
+notes: |
+  Here are notes\\
+  This is \LaTeX
+  \section{For the TOC}
+  Another text\index{text}.
+
+# slide
+---
+type: shout
+text: Final slide

@@ -1,0 +1,246 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Technical documentation &mdash; GLMF HS Python 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="top" title="GLMF HS Python 0.0.1 documentation" href="index.html" />
+    <link rel="prev" title="Samples" href="samples.html" /> 
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+  <a href="index.html">
+    <img src="_static/glmf.png" border="0" alt="GLMF HS Python"/>
+  </a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="samples.html" title="Samples"
+             accesskey="P">previous</a> |</li>
+  <li><a href="index.html">GLMF HS Python home</a>|&nbsp;</li>
+  <li><a href="contents.html">Documentation </a> &raquo;</li>
+ 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Technical documentation</a><ul>
+<li><a class="reference internal" href="#slide">Slide</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="samples.html"
+                        title="previous chapter">Samples</a></p>
+  <h3>This Page</h3>
+  <ul class="this-page-menu">
+    <li><a href="_sources/technical_doc.txt"
+           rel="nofollow">Show Source</a></li>
+  </ul>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="module-Slide">
+<span id="technical-documentation"></span><h1>Technical documentation<a class="headerlink" href="#module-Slide" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="slide">
+<h2>Slide<a class="headerlink" href="#slide" title="Permalink to this headline">¶</a></h2>
+<p>This comments are not included in the <em>docstrings</em>.</p>
+<dl class="class">
+<dt id="Slide.Slide">
+<em class="property">class </em><tt class="descclassname">Slide.</tt><tt class="descname">Slide</tt><big>(</big><em>settings</em>, <em>data</em><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="method">
+<dt id="Slide.Slide.__init__">
+<tt class="descname">__init__</tt><big>(</big><em>settings</em>, <em>data</em><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Constructor</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>settings</strong> (<em>string</em>) &#8211; Settings list including ROOT, LANG, TEMPLATE, etc.</li>
+<li><strong>data</strong> (<em>dictionnary</em>) &#8211; Data read from the yaml file and used to generate the
+slide</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">Object Slide</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first">Slide</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Todo :</th><td class="field-body"><p class="first last">Use only self.settings instead of self.lang etc.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="Slide.Slide.__weakref__">
+<tt class="descname">__weakref__</tt><a class="headerlink" href="#Slide.Slide.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Slide.Slide.generate_all">
+<tt class="descname">generate_all</tt><big>(</big><em>report_activated</em><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide.generate_all"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide.generate_all" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of the slide in html and the report page associated to 
+the slide</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Slide.Slide.generate_external_slides">
+<tt class="descname">generate_external_slides</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide.generate_external_slides"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide.generate_external_slides" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of the html code of the slide in the self.html attribute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>..todo: Use the logging module</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Slide.Slide.generate_report">
+<tt class="descname">generate_report</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide.generate_report"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide.generate_report" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of the report page associated to the slide</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">LaTeX code of the report and True or,
+Dictionnary with data of the slide and False</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">(string|dictionnary, boolean)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="method">
+<dt id="Slide.Slide.generate_slide">
+<tt class="descname">generate_slide</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide.generate_slide"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide.generate_slide" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generation of the html code of the slide in the self.html attribute</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+<p>..todo: Use the logging module</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="Slide.Slide.save">
+<tt class="descname">save</tt><big>(</big><big>)</big><a class="reference internal" href="_modules/Slide.html#Slide.save"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#Slide.Slide.save" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the current slide in the slides_dir directory</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+        <li class="right" >
+          <a href="samples.html" title="Samples"
+             >previous</a> |</li>
+  <li><a href="index.html">GLMF HS Python home</a>|&nbsp;</li>
+  <li><a href="contents.html">Documentation </a> &raquo;</li>
+ 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Tristan Colombo.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

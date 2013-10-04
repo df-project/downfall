@@ -1,0 +1,63 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: True
+numbers: True
+transition: fade
+tableofcontents: False # Omit if you don't want to display it
+index: False # Omit if you don't want to display it
+report: 2slidesnnotes # Available modes are : 1slide, 2slides, 2slidesnnotes
+                      # Available soon :slidentext, 3slides, 3slidesnnotes, 
+                      # 6slides, custom
+
+# Optional
+author: Tristan Colombo
+created: 25/06/2013
+modified: 26/06/2013
+tags: downfall, code
+
+# slide 1
+---
+type: cover
+title: Code presentation sample
+name: Tristan Colombo
+logo: images/info2dev.png
+date: 2013
+image: images/code_cover.png
+halfsizeimage: True
+shadow: True
+roundcorner: True
+
+# Slide 2
+---
+type: code
+text: Inline code
+linenumber: True
+syntax: True
+language: python # if not detected you can specify the language
+code: |
+  def function():
+    print "This is a Python function"
+    return None
+  
+  print "Test"
+  function()
+
+# Slide 3
+---
+type: code
+text: A portion of source code
+file: ^code.py # Indicate local folder with ^
+linenumber: True
+syntax: True
+lines: 1,4,6-8
+
+# Slide 4
+---
+type: code
+text: Source code
+file: ^code.py # Indicate locla folder with ^
+linenumber: True
+syntax: True
+numberslide: True

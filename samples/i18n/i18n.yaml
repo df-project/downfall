@@ -1,0 +1,34 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: True
+numbers: True
+transition: fade
+report: 2slides # Available modes are : 1slide, 2slides, 2slidesnnotes,
+                # slidentext, 3slides, 3slidesnnotes, 6slides, custom
+lang: fr
+
+# slide 1
+---
+type: cover
+title: i18n presentation sample
+title_fr: Exemple de présentation i18n
+
+# slide 2
+---
+type: shout
+text: Welcome in DownFall!
+text_fr: Bienvenue dans DownFall!
+
+# slide 3
+---
+type: shout
+text: Welcome in DownFall 2!
+text_fr: Bienvenue dans DownFall 2!
+
+notes: |
+  Little notes in default language
+
+notes_fr: |
+  Petites notes en français

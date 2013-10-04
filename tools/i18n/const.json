@@ -1,0 +1,14 @@
+{
+  "default":"fr",
+
+  "exercise":{
+    "en":"Exercise",
+    "fr":"Atelier"
+  },
+
+  "part":{
+    "en":"Part",
+    "fr":"Partie"
+  }
+
+}

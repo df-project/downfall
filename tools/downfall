@@ -1,0 +1,213 @@
+#!/usr/bin/python
+# -*- coding:utf-8 -*-
+
+"""
+  Downfall main program
+
+  Author: Tristan Colombo <tristan.colombo@info2dev.com>
+                          (@TristanColombo)
+
+  Date: 10-25-2012 
+
+  Last modification: 09-30-2013
+
+  Licence: GNU GPL v3
+"""
+
+import os
+import argparse
+import yaml
+import pystache
+import shutil
+import distutils.dir_util
+import distutils.file_util
+import logging
+import logging.handlers
+import itertools
+
+from classes.Error import *
+from classes.Settings import *
+from classes.Presentation import *
+from classes.Slide import *
+from classes.ProgressBar import *
+
+
+def compute_nb_slides(filename, counter = None):
+  """
+    Compute number of slides if progress bar enabled (quiet option)
+
+    :param filename: Name of the yaml file
+    :type  filename: string
+
+    :param counter: Current number of slides. None for first call
+    :type  counter: int
+
+    :return: Number of slides
+    :retype: int
+  """
+  if counter == None:
+    counter = 0
+  
+  try:
+    f = file(filename, "r")
+  except IOError:
+    main_logger.critical("No file %s found" % (filename,))
+    exit(Error.IOError)
+  
+  stream, length_stream = itertools.tee(yaml.load_all(f))
+  for slide in length_stream:
+    if "type" in slide:
+      if slide["type"] == "external":
+        repository = os.getenv("DF_REPOSITORY")
+        if repository == None:
+          filename = self.Settings.DIR["presentation"]
+        else:
+          filename = repository
+        filename = repository + "/" + slide["link"] + ".yaml"
+        counter = compute_nb_slides(filename, counter)
+      else:
+        counter += 1
+  
+  return counter
+
+
+
+
+def generate(args):
+  """
+    Generation of slides, presentation and eventually report
+  """
+  nb_slides = None
+  if args.quiet:
+    main_logger.setLevel(logging.CRITICAL)
+    # Compute approximative number of slides and report to generate in order to
+    # display the progress bar
+    nb_slides = compute_nb_slides(args.filename)
+
+  # Read presentation file
+  try:
+    f = file(args.filename, "r")
+  except IOError:
+    main_logger.critical("No file %s found" % (args.filename,))
+    exit(Error.IOError)
+
+  stream = yaml.load_all(f)
+ 
+  # Initialization of the presentation including the path of the current script
+  settings = Settings(args.filename, os.path.abspath(os.path.dirname(__file__))
+      + '/')
+
+  # Save report state
+  if args.report:
+    settings.REPORT_ACTIVATED = True
+  else:
+    settings.REPORT_ACTIVATED = False
+
+  # On quiet option activated, display progress bar
+  if args.quiet:
+    settings.CONSOLE_PROGRESS_BAR = ProgressBar(nb_slides)
+  else:
+    settings.CONSOLE_PROGRESS_BAR = None
+
+  # Create directory slides if not exists
+  if not os.path.exists(settings.DIR["slides"]):
+    os.makedirs(settings.DIR["slides"])
+  # Create directory report if option activated and not exists
+  if args.report and not os.path.exists(settings.DIR["report"]):
+    os.makedirs(settings.DIR["report"])
+
+  # Generation of presentation slides and html file
+  p = Presentation(settings, stream, args.report, nb_slides)
+  p.generate_slides()
+  p.generate_report()
+
+  # Cleaning the directory
+  if args.autoclean:
+    args.dirname = os.path.dirname(args.filename)
+    if args.dirname == "" or args.dirname == ".":
+      args.dirname = "../" + os.path.basename(args.filename).split(".")[0]
+    clean(args)
+
+
+def clean(args):
+  """
+    Clean the directory of a presentation
+
+    ..todo: Complete the function
+  """
+  presentation = args.dirname.split("/")[-1]
+  main_logger.info("Cleaning presentation %s : directory %s" % (presentation, 
+    args.dirname,))
+  # Removing files
+  for fic in (".aux", ".log", ".fdb_latexmk", ".tex", ".ptc", ".toc", ".idx",
+      ".ind", ".pyg"):
+    try:
+      main_logger.info("Removing %s/%s" % (args.dirname, presentation + fic,))
+      os.remove("%s/%s" % (args.dirname, presentation + fic))
+    except OSError:
+      main_logger.error("File %s/%s not found" % (args.dirname, 
+        presentation + fic))
+  # Removing directories
+  for dirname in ("slides", "report", "data/report", "data/slides"):
+    try:
+      main_logger.info("Removing %s/%s" % (args.dirname, dirname))
+      shutil.rmtree("%s/%s" % (args.dirname, dirname))
+    except OSError:
+      main_logger.error("File %s/%s not found" % (args.dirname, dirname))
+
+
+if __name__ == "__main__":
+  """
+    Logger creation
+  """
+  main_logger = logging.getLogger("downfall_log")
+  main_logger.setLevel(logging.INFO)
+
+  filehandler = logging.handlers.RotatingFileHandler(
+    os.path.abspath(os.path.dirname(__file__)) + "/../log/downfall.log", 
+    maxBytes = 102400, backupCount = 5)
+  filehandler.setLevel(logging.ERROR)
+  filehandler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - \
+  %(filename)s - %(funcName)s (%(lineno)d) - %(levelname)s : %(message)s",
+  datefmt = "%d/%m/%Y %H:%M:%S"))
+  main_logger.addHandler(filehandler)
+
+  consolehandler = logging.StreamHandler()
+  consolehandler.setLevel(logging.INFO)
+  consolehandler.setFormatter(logging.Formatter("%(levelname)s : %(message)s"))
+  main_logger.addHandler(consolehandler)
+
+  """
+    Creation of the parser
+  """
+  parser    = argparse.ArgumentParser()
+  subparsers = parser.add_subparsers(help="commands")
+
+  """
+    Definition of the "generate" command 
+  """
+  generate_parser = subparsers.add_parser('generate', help="Generate a \
+      presentation from a yaml file")
+  generate_parser.add_argument("filename", action="store", help="The yaml \
+      file containing the definition of the presentation")
+  generate_parser.add_argument("-r", "--report", action="store_true", 
+      default=False, dest="report", help="Generate associated report")
+  generate_parser.add_argument("-q", "--quiet", action="store_true",
+      default=False, dest="quiet", help="Deactivate verbose mode")
+  generate_parser.add_argument("-a", "--autoclean", action="store_true",
+      default=False, dest="autoclean", help="Clean the slideshow directory")
+  generate_parser.set_defaults(func = generate)
+
+  """
+    Definition of the "clean" command 
+  """
+  clean_parser = subparsers.add_parser('clean', help="Clean a \
+      slideshow directory")
+  clean_parser.add_argument("dirname", action="store", help="The directory \
+      to clean")
+  clean_parser.add_argument("-q", "--quiet", action="store_true",
+      default=False, dest="quiet", help="Deactivate verbose mode")
+  clean_parser.set_defaults(func = clean)
+
+  args = parser.parse_args()
+  args.func(args)

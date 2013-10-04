@@ -1,0 +1,375 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Slide &mdash; GLMF HS Python 0.0.1 documentation</title>
+    
+    <link rel="stylesheet" href="../_static/sphinxdoc.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0.0.1',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="GLMF HS Python 0.0.1 documentation" href="../index.html" />
+    <link rel="up" title="Module code" href="index.html" /> 
+  </head>
+  <body>
+<div style="background-color: white; text-align: left; padding: 10px 10px 15px 15px">
+  <a href="../index.html">
+    <img src="../_static/glmf.png" border="0" alt="GLMF HS Python"/>
+  </a>
+</div>
+
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+  <li><a href="../index.html">GLMF HS Python home</a>|&nbsp;</li>
+  <li><a href="../contents.html">Documentation </a> &raquo;</li>
+
+          <li><a href="index.html" accesskey="U">Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <h1>Source code for Slide</h1><div class="highlight"><pre>
+<span class="c">#!/usr/bin/python</span>
+<span class="c"># -*- coding:utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">pystache</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">yaml</span>
+
+<div class="viewcode-block" id="Slide"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide">[docs]</a><span class="k">class</span> <span class="nc">Slide</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+  
+<div class="viewcode-block" id="Slide.__init__"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">settings</span><span class="p">,</span> <span class="n">data</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Constructor</span>
+
+<span class="sd">      :param settings:  Settings list including ROOT, LANG, TEMPLATE, etc.</span>
+<span class="sd">      :type  settings:  string</span>
+<span class="sd">      </span>
+<span class="sd">      :param data:        Data read from the yaml file and used to generate the</span>
+<span class="sd">                          slide</span>
+<span class="sd">      :type  data:        dictionnary</span>
+<span class="sd">      </span>
+<span class="sd">      :return: Object Slide</span>
+<span class="sd">      :rtype:  Slide</span>
+
+<span class="sd">      :TODO:   Use only self.settings instead of self.lang etc.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__settings</span>        <span class="o">=</span> <span class="n">settings</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__identifier</span>      <span class="o">=</span> <span class="s">&quot;slide_</span><span class="si">%03d</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">SLIDE</span><span class="p">,)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__data</span>            <span class="o">=</span> <span class="n">data</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__lang</span>            <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">LANG</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__html</span>            <span class="o">=</span> <span class="bp">None</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span>           <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">THEME</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__template_report</span> <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">REPORT</span><span class="p">[</span><span class="s">&#39;template&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__report_type</span>     <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">REPORT</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__root_dir</span>        <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">DIR</span><span class="p">[</span><span class="s">&#39;root&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__slides_dir</span>      <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">DIR</span><span class="p">[</span><span class="s">&#39;slides&#39;</span><span class="p">]</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__report_dir</span>      <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">DIR</span><span class="p">[</span><span class="s">&#39;report&#39;</span><span class="p">]</span>
+
+    <span class="c"># Get global template</span>
+    <span class="k">if</span> <span class="n">settings</span><span class="o">.</span><span class="n">TEMPLATE</span> <span class="o">==</span> <span class="s">&quot;&quot;</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+        <span class="n">fic_template</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">DIR</span><span class="p">[</span><span class="s">&#39;root&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;cores/&quot;</span> <span class="o">+</span> <span class="n">settings</span><span class="o">.</span><span class="n">CORE</span> <span class="o">+</span> 
+            <span class="s">&quot;/main.html&quot;</span><span class="p">)</span>
+        <span class="n">settings</span><span class="o">.</span><span class="n">TEMPLATE</span> <span class="o">=</span> <span class="n">fic_template</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+      <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&quot;Core template </span><span class="si">%s</span><span class="s"> not found&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">settings</span><span class="o">.</span><span class="n">CORE</span><span class="p">,)</span>
+        <span class="nb">exit</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+      <span class="n">fic_template</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__template_main</span>   <span class="o">=</span> <span class="n">settings</span><span class="o">.</span><span class="n">TEMPLATE</span>
+
+    <span class="c"># Save the slide number of the link to external slides</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__external</span> <span class="o">=</span> <span class="bp">None</span>
+</div>
+  <span class="k">def</span> <span class="nf">__getSettings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__settings</span>
+  <span class="n">settings</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__getSettings</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__get_identifier</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__identifier</span>
+  <span class="n">identifier</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_identifier</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__get_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__data</span>
+  <span class="n">data</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_data</span><span class="p">)</span>
+  
+  <span class="k">def</span> <span class="nf">__get_lang</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__lang</span>
+  <span class="n">lang</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_lang</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__get_html</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__html</span>
+  <span class="k">def</span> <span class="nf">__set_html</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">html</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__html</span> <span class="o">=</span> <span class="n">html</span>
+  <span class="n">html</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_html</span><span class="p">,</span> <span class="n">__set_html</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__get_theme</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__theme</span>
+  <span class="n">theme</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_theme</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__get_template_main</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__template_main</span>
+  <span class="k">def</span> <span class="nf">__set_template_main</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_main</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__template_slide</span> <span class="o">=</span> <span class="n">template_main</span>
+  <span class="n">template_main</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_template_main</span><span class="p">,</span> <span class="n">__set_template_main</span><span class="p">)</span>
+ 
+  <span class="k">def</span> <span class="nf">__get_template_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__template_report</span>
+  <span class="k">def</span> <span class="nf">__set_template_report</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">template_report</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__template_report</span> <span class="o">=</span> <span class="n">template_report</span>
+  <span class="n">template_report</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_template_report</span><span class="p">,</span> <span class="n">__set_template_report</span><span class="p">)</span>
+  
+  <span class="k">def</span> <span class="nf">__get_report_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__report_type</span>
+  <span class="n">report_type</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_report_type</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__get_root_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__root_dir</span>
+  <span class="n">root_dir</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_root_dir</span><span class="p">)</span>
+  
+  <span class="k">def</span> <span class="nf">__get_slides_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__slides_dir</span>
+  <span class="n">slides_dir</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_slides_dir</span><span class="p">)</span>
+  
+  <span class="k">def</span> <span class="nf">__get_report_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__report_dir</span>
+  <span class="n">report_dir</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__get_report_dir</span><span class="p">)</span>
+
+  <span class="k">def</span> <span class="nf">__getExternal</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__external</span>
+  <span class="k">def</span> <span class="nf">__setExternal</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">external</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">__external</span> <span class="o">=</span> <span class="n">external</span>
+  <span class="n">external</span> <span class="o">=</span> <span class="nb">property</span><span class="p">(</span><span class="n">__getExternal</span><span class="p">,</span> <span class="n">__setExternal</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="Slide.save"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide.save">[docs]</a>  <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Save the current slide in the slides_dir directory</span>
+
+<span class="sd">      :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">fic_current_slide</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">slides_dir</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">+</span> <span class="s">&quot;.html&quot;</span><span class="p">,</span> <span class="s">&quot;w&quot;</span><span class="p">)</span>
+      <span class="n">fic_current_slide</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">pystache</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_main</span><span class="p">,</span> 
+        <span class="p">{</span><span class="s">&quot;presentation&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">html</span><span class="p">,</span> <span class="s">&quot;path&quot;</span> <span class="p">:</span> <span class="s">&quot;../&quot;</span><span class="p">,</span> <span class="s">&quot;id&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,</span>
+         <span class="s">&quot;progressbar&quot;</span> <span class="p">:</span> <span class="s">&quot;&quot;</span><span class="p">,</span> <span class="s">&quot;numbers&quot;</span> <span class="p">:</span> <span class="s">&quot;nonumbers&quot;</span><span class="p">,</span> <span class="s">&quot;report&quot;</span><span class="p">:</span>
+         <span class="s">&quot;true&quot;</span><span class="p">})</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span><span class="s">&#39;utf-8&#39;</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">&quot;Unable to save the slide </span><span class="si">%s</span><span class="s">.html&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,)</span>
+      <span class="nb">exit</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="n">fic_current_slide</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+
+</div>
+<div class="viewcode-block" id="Slide.generate_slide"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide.generate_slide">[docs]</a>  <span class="k">def</span> <span class="nf">generate_slide</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Generation of the html code of the slide in the self.html attribute</span>
+
+<span class="sd">      :return: None</span>
+
+<span class="sd">      ..todo: Use the logging module</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;Work in progress : </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,)</span>
+
+    <span class="c"># Detection of external slide(s)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&#39;external&#39;</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">&quot;External slides detected in </span><span class="si">%s</span><span class="s">.yaml&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;link&#39;</span><span class="p">],)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">external</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">generate_external_slides</span><span class="p">()</span>
+      <span class="k">print</span> <span class="s">&quot;End of external slides&quot;</span>
+      <span class="k">return</span> <span class="bp">None</span>
+
+    <span class="c"># Using data from doc with pystache</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">fic_template_slide</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">root_dir</span> <span class="o">+</span> <span class="s">&quot;../themes/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">theme</span> <span class="o">+</span> \
+          <span class="s">&quot;/slides/&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;type&quot;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&quot;.html&quot;</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+      <span class="n">template_slide</span> <span class="o">=</span> <span class="n">fic_template_slide</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">&quot;The type </span><span class="si">%s</span><span class="s"> is not defined in theme </span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;type&#39;</span><span class="p">],</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">theme</span><span class="p">)</span>
+      <span class="nb">exit</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+    <span class="n">fic_template_slide</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="c"># Replacement of data in the template using Pystache</span>
+    <span class="n">preserve</span> <span class="o">=</span> <span class="p">(</span><span class="s">&quot;id&quot;</span><span class="p">,</span> <span class="s">&quot;type&quot;</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&quot;id&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span>
+    <span class="k">for</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="n">key</span> <span class="ow">in</span> <span class="n">preserve</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">key</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">key</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">lang</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">html</span> <span class="o">=</span> <span class="n">pystache</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">template_slide</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">)</span>
+      
+    <span class="c"># Add the current slide to the presentation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PRESENTATION</span> <span class="o">+=</span> <span class="bp">self</span><span class="o">.</span><span class="n">html</span>
+
+
+</div>
+<div class="viewcode-block" id="Slide.generate_external_slides"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide.generate_external_slides">[docs]</a>  <span class="k">def</span> <span class="nf">generate_external_slides</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Generation of the html code of the slide in the self.html attribute</span>
+
+<span class="sd">      :return: None</span>
+
+<span class="sd">      ..todo: Use the logging module</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="s">&#39;link&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;.yaml&#39;</span>
+
+    <span class="k">if</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;/&#39;</span> <span class="ow">and</span> <span class="n">filename</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&#39;~&#39;</span><span class="p">:</span>
+      <span class="n">filename</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">DIR</span><span class="p">[</span><span class="s">&#39;presentation&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="s">&#39;/&#39;</span> <span class="o">+</span> <span class="n">filename</span>
+
+    <span class="k">try</span><span class="p">:</span>
+      <span class="n">f</span> <span class="o">=</span> <span class="nb">file</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&quot;r&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">IOError</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">&quot;No file </span><span class="si">%s</span><span class="s"> found&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">filename</span><span class="p">,)</span>
+      <span class="nb">exit</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+ 
+    <span class="n">stream</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load_all</span><span class="p">(</span><span class="n">f</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">doc</span> <span class="ow">in</span> <span class="n">stream</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s">&quot;type&quot;</span> <span class="ow">in</span> <span class="n">doc</span><span class="p">:</span>
+        <span class="k">if</span> <span class="n">doc</span><span class="p">[</span><span class="s">&quot;type&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="s">&quot;external&quot;</span><span class="p">:</span>
+          <span class="k">print</span> <span class="s">&quot;Nested external type detected : only one level authorized&quot;</span>
+          <span class="nb">exit</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
+        <span class="k">elif</span> <span class="n">doc</span><span class="p">[</span><span class="s">&quot;type&quot;</span><span class="p">]</span> <span class="o">!=</span> <span class="s">&quot;cover&quot;</span><span class="p">:</span>
+          <span class="k">print</span> <span class="s">&quot;Slide external detected&quot;</span>
+          <span class="n">s</span> <span class="o">=</span> <span class="n">Slide</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="p">,</span> <span class="n">doc</span><span class="p">)</span>
+
+          <span class="c"># slide and report generation</span>
+          <span class="n">s</span><span class="o">.</span><span class="n">generate_all</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">SLIDE</span> <span class="o">-=</span> <span class="mi">1</span>
+
+
+
+
+</div>
+<div class="viewcode-block" id="Slide.generate_report"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide.generate_report">[docs]</a>  <span class="k">def</span> <span class="nf">generate_report</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Generation of the report page associated to the slide</span>
+
+<span class="sd">      :return: LaTeX code of the report and True or,</span>
+<span class="sd">               Dictionnary with data of the slide and False</span>
+<span class="sd">      :rtype : (string|dictionnary, boolean)</span>
+
+<span class="sd">      ..todo: Use the logging module</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c"># Screenshot of the slide</span>
+    <span class="k">print</span> <span class="s">&quot;Generating slide screenshot for report : </span><span class="si">%s</span><span class="s">.png&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,)</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&quot;phantomjs &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">root_dir</span> <span class="o">+</span> <span class="s">&quot;scripts/rasterize.js &quot;</span> <span class="o">+</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">slides_dir</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">+</span> <span class="s">&quot;.html?full#&quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">+</span>
+      <span class="s">&quot; &quot;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_dir</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span> <span class="o">+</span> <span class="s">&quot;.png&quot;</span><span class="p">)</span>
+    <span class="c"># Generate report page(s)</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_type</span> <span class="o">==</span> <span class="s">&quot;1slide&quot;</span><span class="p">:</span>
+      <span class="k">return</span> <span class="p">(</span><span class="n">pystache</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_report</span><span class="p">,</span> 
+            <span class="p">{</span><span class="s">&quot;image&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_dir</span> <span class="o">+</span> <span class="s">&quot;/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,)</span> <span class="p">}),</span> <span class="bp">True</span><span class="p">)</span>
+    <span class="k">elif</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_type</span> <span class="o">==</span> <span class="s">&quot;2slides&quot;</span><span class="p">:</span>
+      <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span><span class="p">:</span>
+        <span class="k">return</span> <span class="p">({</span><span class="s">&quot;image1&quot;</span> <span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_dir</span> <span class="o">+</span> <span class="s">&quot;/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,)},</span>
+            <span class="bp">False</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span><span class="p">[</span><span class="s">&#39;image2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">report_dir</span> <span class="o">+</span> <span class="s">&quot;/</span><span class="si">%s</span><span class="s">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">,)</span>
+        <span class="k">return</span> <span class="p">(</span><span class="n">pystache</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">template_report</span><span class="p">,</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span><span class="p">),</span> <span class="bp">True</span><span class="p">)</span>
+
+
+</div>
+<div class="viewcode-block" id="Slide.generate_all"><a class="viewcode-back" href="../technical_doc.html#Slide.Slide.generate_all">[docs]</a>  <span class="k">def</span> <span class="nf">generate_all</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">report_activated</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">      Generation of the slide in html and the report page associated to </span>
+<span class="sd">      the slide</span>
+
+<span class="sd">      :return: None</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span> <span class="s">&quot;Slide n.&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">SLIDE</span><span class="p">)</span>
+    <span class="c"># Slide generation</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">generate_slide</span><span class="p">()</span>
+
+    <span class="c"># Save a screenshot of the slide</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+    <span class="c"># Create report page if needed</span>
+    <span class="k">if</span> <span class="n">report_activated</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">external</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">identifier</span><span class="p">:</span>
+      <span class="n">report</span><span class="p">,</span> <span class="n">final</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">generate_report</span><span class="p">()</span>
+      <span class="k">if</span> <span class="n">final</span> <span class="o">==</span> <span class="bp">True</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">REPORT</span><span class="p">[</span><span class="s">&quot;pages&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">report</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span> <span class="o">=</span> <span class="p">{}</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">report</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">PREVIOUS_PAGE</span> <span class="o">=</span> <span class="n">report</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">settings</span><span class="o">.</span><span class="n">SLIDE</span> <span class="o">+=</span> <span class="mi">1</span></div></div>
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="../py-modindex.html" title="Python Module Index"
+             >modules</a> |</li>
+  <li><a href="../index.html">GLMF HS Python home</a>|&nbsp;</li>
+  <li><a href="../contents.html">Documentation </a> &raquo;</li>
+
+          <li><a href="index.html" >Module code</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2013, Tristan Colombo.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 1.1.3.
+    </div>
+  </body>
+</html>

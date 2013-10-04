@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="en-US" class="{{transition}} {{numbers}}">
+
+  <head>
+    <title>{{title}}</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1274, user-scalable=no" />
+    <link rel="stylesheet" href="{{path}}data/styles/style.css" />
+    <link rel="stylesheet" href="{{path}}data/styles/code.css" />
+    {{#report}}
+    <link rel="stylesheet" href="{{path}}data/styles/style_report.css" />
+    {{/report}}
+  </head>
+
+  <body class="list">
+
+    <header class="caption">
+      <h1>{{title}}</h1>
+      <p class="footer">
+        {{author}}
+        {{#twitter}}
+          , <a href="http://twitter.com/{{twitter}}">@{{twitter}}</a>
+        {{/twitter}}
+        {{#mail}}
+          , <a href="mailto:{{mail}}">{{mail}}</a>
+        {{/mail}}
+      </p>
+    </header>
+
+    <!--
+      Presentation slides
+    -->
+    {{{presentation}}}
+  
+    <!--
+      Insertion of a progress bar if needed
+    -->
+    {{{progressbar}}}
+  
+    <script src="{{path}}data/scripts/script.js"></script>
+    <!-- Copyright (c) 2010-2012 Vadim Makeev - pepelsbey.net -->
+  </body>
+</html>

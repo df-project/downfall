@@ -1,0 +1,169 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: True
+numbers: True
+transition: fade
+tableofcontents: True # Omit if you don't want to display it
+index: True # Omit if you don't want to display it
+report: 2slidesnnotes # Available modes are : 1slide, 2slides, 2slidesnnotes
+                      # Available soon :slidentext, 3slides, 3slidesnnotes, 
+                      # 6slides, custom
+exercise_label: Exercise
+definition_label: Definition
+
+author: Tristan Colombo
+title: Simple presentation sample
+
+# Optional
+created: 12/10/2012
+modified: 09/07/2013
+tags: downfall, sample
+
+# slide 1
+---
+type: cover
+title: Simple presentation sample
+
+# slide 2
+---
+type: shout
+text: Welcome in DownFall!
+
+# slide 3
+---
+type: shout
+text: Welcome in DownFall 2!
+notes: |
+  \chapter{This is for the TOC}
+
+  \section{First section}
+  Here are the notes\\
+  And this is \LaTeX\\
+  Another text\index{text}.\\
+
+  \begin{definition}\index{python}
+  Python is a development language easy to use.
+  \end{definition}
+
+  \begin{remark}\index{remarque}
+  This is a remark.
+  \end{remark}
+
+  \section{Python code}
+
+  \begin{minted}[linenos=true]{python}
+  def function(n):
+    if n % 2:
+      return "even"
+    else:
+      return "odd"
+  \end{minted}
+
+  \begin{exercise}
+  Result of 2 + 2?
+  \end{exercise}
+
+  \section{Python code from a file}
+  \inputminted[linenos=true]{python}{code.py}
+
+# slide 4
+---
+type: shout
+text: Final slide
+
+# slide 5
+---
+type: shout
+text: Slide hide in report
+report: hide # Hide the slide and notes in the report
+             # Use hidenotes to hide only notes
+             # Use hidescreen to hide only slide screenshot
+notes : |
+  Some notes
+  \section{Comments}
+  Comments of the hiden slide
+
+# slide 6
+---
+type: shout
+text: Slide in report but not notes
+report: hidenotes
+notes : |
+  Some notes
+  \section{Comments}
+  Comments of the hiden slide
+
+# slide 7
+---
+type: shout
+text: Slide not in report but notes
+report: hidescreen
+notes : |
+  Some notes
+  \section{Comments}
+  Comments of the hiden slide hidescreen
+
+# slide 8
+---
+type: part
+image: biblio.jpg
+title: First part
+notes: |
+  \chapter{Second chapter}
+
+  \section{First section}
+  Here are the notes\\
+  And this is \LaTeX\\
+  Another text\index{text}.\\
+
+# slide 9
+---
+type: exercise_title
+image: biblio.jpg
+title: A little exercise
+
+# slide 10
+---
+type: exercise
+text: |
+  Write a factorial function in Python.
+  This function should be recursive or iterative.
+
+# slide 11
+---
+type: part
+image: biblio.jpg
+title: Second part
+report: hidescreen
+notes: |
+  \section{Xth section}
+  Here are the notes\\
+  And this is \LaTeX\\
+  Another text\index{text}.\\
+
+  \begin{definition}\index{python}
+  Python is a development language easy to use.
+  \end{definition}
+
+  \begin{remark}\index{remarque}
+  This is a remark.
+  \end{remark}
+
+  \section{Python code}
+
+  \begin{minted}[linenos=true]{python}
+  def function(n):
+    if n % 2:
+      return "even"
+    else:
+      return "odd"
+  \end{minted}
+
+  \begin{exercise}
+  Result of 2 + 2?
+  \end{exercise}
+
+  \section{Python code from a file}
+  \inputminted[linenos=true]{python}{code.py}
