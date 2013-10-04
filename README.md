@@ -43,7 +43,7 @@ the file in the license directory for details.
 ## Contributing
 
 You're always welcome to contribute. Fork project, make changes and send it as 
-pull request. But it's better to file an [issue](https://github.com/df-project/downfall/issues) with your idea first and consult the [roadmap](https://github.com/df-project/downfall/ROADMAP.md).
+pull request. But it's better to file an [issue](https://github.com/df-project/downfall/issues) with your idea first and consult the [roadmap](https://github.com/df-project/downfall/blob/master/ROADMAP.md).
 
 ---
 Licensed under [GNU GPL v3](http://www.gnu.org/licenses/gpl.html), see 
