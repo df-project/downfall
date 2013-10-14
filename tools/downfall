@@ -140,13 +140,21 @@ def clean(args):
     args.dirname,))
   # Removing files
   for fic in (".aux", ".log", ".fdb_latexmk", ".tex", ".ptc", ".toc", ".idx",
-      ".ind", ".pyg"):
+      ".ind", ".pyg", ".out"):
     try:
       main_logger.info("Removing %s/%s" % (args.dirname, presentation + fic,))
       os.remove("%s/%s" % (args.dirname, presentation + fic))
     except OSError:
       main_logger.error("File %s/%s not found" % (args.dirname, 
         presentation + fic))
+  # Removing specific files
+  for fic in ("df-report.cls",):
+    try:
+      main_logger.info("Removing %s/%s" % (args.dirname, fic,))
+      os.remove("%s/%s" % (args.dirname, fic))
+    except OSError:
+      main_logger.error("File %s/%s not found" % (args.dirname, fic))
+
   # Removing directories
   for dirname in ("slides", "report", "data/report", "data/slides"):
     try:
