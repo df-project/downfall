@@ -85,7 +85,13 @@
 	}
 
 	function getSlideHash(slideNumber) {
-		return '#' + slideList[normalizeSlideNumber(slideNumber)].id;
+                var slideNormalize = slideList[normalizeSlideNumber(slideNumber)].id;
+                //  Autoplay video if 'video' in slide class list
+                if (document.getElementById(slideNormalize).classList.contains('video'))
+                {
+		      document.getElementById('video_' + slideNormalize).play();
+                }
+		return '#' + slideNormalize;
 	}
 
 	function goToSlide(slideNumber) {

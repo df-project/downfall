@@ -28,6 +28,17 @@ body:after {
 	color: #0090ff;
 }
 
+video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 100000;
+  height: 100%;
+  width: 100%;
+}
+
 /* Slide
 ---------------------------------------- */
 .slide:after {

@@ -182,6 +182,10 @@ class Slide(object):
     if "credit" in self.data:
       self.data["include_credits"] = True
 
+    # On "fullvideo" slides, report is disabled
+    if self.data["type"] == "fullvideo":
+      self.data["report"] = "hide"
+
     # On "fullimage" slides, background-text by default and not full line
     if self.data["type"] == "fullimage":
       self.data["background-text"] = self.data.get("background-text", True)

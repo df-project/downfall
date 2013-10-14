@@ -1,0 +1,38 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: False
+numbers: False
+transition: fade
+report: 2slidesnnotes
+tableofcontents: False
+index: False
+
+author: Tristan Colombo
+created: 10-06-2013
+modified: 10-06-2013
+tags: video
+
+# slide 1
+---
+type: cover
+title: Video presentation sample
+name: Tristan Colombo
+logo: images/info2dev.png
+date: 2013
+image: images/code_cover.png
+halfsizeimage: True
+shadow: True
+roundcorner: True
+
+# slide 2 : Video
+---
+type: fullvideo
+video: video/bigbuckdany.webm
+report: hide
+
+# slide 3
+---
+type: shout
+text: The End
