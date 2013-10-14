@@ -1,4 +1,4 @@
-# EZ LaTeX plugin for DownFall
+# EZLaTeX plugin for DownFall
 
 This plugin allows you to write notes using a special notation and generate
 LaTeX code for you.
