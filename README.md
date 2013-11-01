@@ -11,9 +11,9 @@ the file in the license directory for details.
 
 * Actually only one core is proposed and it is based on Mozilla Evangelism Reps
   shower available on
-  [https://github.com/mozilla-ro/presentations/tree/master/HTML5](https://github.com/mozilla-ro/presentations/tree/master/HTML5)
+  [https://github.com/mozilla-ro/presentations/tree/master/HTML5](https://github.com/mozilla-ro/presentations/tree/master/HTML5),
 * Based on [@pepelsbey](http://twitter.com/pepelsbey)'s original shower system available on [https://github.com/pepelsbey/shower](https://github.com/pepelsbey/shower)
-* Licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License), see [license page](https://github.com/pepelsbey/shower/wiki/License-En) for details.
+licensed under [MIT License](http://en.wikipedia.org/wiki/MIT_License), see [license page](https://github.com/pepelsbey/shower/wiki/License-En) for details.
 * The technical documentation use the sphinx theme linfiniti by [Tim
   Sutton](mailto:tim@linfiniti.com) and licensed under Creative Commons By-SA, 
   see the file in the license directory 
