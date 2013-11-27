@@ -84,12 +84,36 @@
 		progress.style.width = (100 / (slideList.length - 1) * normalizeSlideNumber(slideNumber)).toFixed(2) + '%';
 	}
 
+        /**
+         * Verification of the time of a video playing. Pause the video before
+         * the real end in order to stop on the display an image 
+         * instead of a blank screen
+         *
+         * id     Identifier of the interval
+         * video  Video element
+         * end    End time
+         */
+        function updateVideo(id, video, end)
+        {
+                if (video.currentTime >= end)
+                {
+                      video.pause();
+                      window.clearInterval(id);
+                };
+        };
+
 	function getSlideHash(slideNumber) {
                 var slideNormalize = slideList[normalizeSlideNumber(slideNumber)].id;
                 //  Autoplay video if 'video' in slide class list
                 if (document.getElementById(slideNormalize).classList.contains('video'))
                 {
-		      document.getElementById('video_' + slideNormalize).play();
+		      var video = document.getElementById('video_' + slideNormalize);
+                      video.currentTime = 0;
+		      video.play();
+                      // Display last image when video ended
+                      vid = window.setInterval(function () { 
+                            updateVideo(vid, video, video.duration - .4); 
+                      }, 100);
                 }
 		return '#' + slideNormalize;
 	}
