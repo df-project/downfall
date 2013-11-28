@@ -216,12 +216,14 @@ class Slide(object):
     if self.data["type"] == "exercise":
       self.data["title"] = self.settings.EXERCISE_NAME
 
-    # If images or code in slide, copy images in data/images or code
-    # in data/files and change path
-    for tag in ("image", "logo", "file"):
+    # If images, video or code in slide, copy images in data/images,
+    # video in data/video or code in data/files and change path
+    for tag in ("image", "video", "logo", "file"):
       if tag in self.data:
         if tag == "file":
           target = "data/files/"
+        elif tag == "video":
+          target = "data/video/"
         else:
           target = "data/images/"
         image_file = target + self.data[tag].split("/")[-1]
