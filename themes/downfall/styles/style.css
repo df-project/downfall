@@ -658,6 +658,7 @@ h2.center
 {
 	float: right;
 	width: 200px;
+        text-align: center;
 	transform: rotate(-10deg);
 	-moz-transform: rotate(-10deg);
 	-webkit-transform: rotate(-10deg);
