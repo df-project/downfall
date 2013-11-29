@@ -199,6 +199,9 @@ class Slide(object):
       if self.settings.PART_NUMBER != 0:
         self.data["number"] = "%d.%d" % (self.settings.PART_NUMBER,
             self.settings.EXERCISE_NUMBER)
+        # Use same image as part if no image defined
+        if not "image" in self.data:
+          self.data["image"] = self.settings.PART_IMAGE
       else:
         self.data["number"] = self.settings.EXERCISE_NUMBER
       self.data["exercise"] = \
@@ -211,6 +214,9 @@ class Slide(object):
       self.data["number"] = self.settings.PART_NUMBER
       self.data["part"] = \
           self.settings.CONST["part"][self.settings.LANG_CONST]
+      # Save image path if defined
+      if "image" in self.data:
+        self.settings.PART_IMAGE = self.data["image"]
 
     # On exercise slide, determine number of the exercise
     if self.data["type"] == "exercise":

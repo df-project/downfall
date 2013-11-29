@@ -60,6 +60,7 @@ class Settings(object):
     self.__slide                = 0
     self.__exercise_number      = 0
     self.__part_number          = 0
+    self.__part_image           = ""
     self.__previous_page        = {}
     self.__filename, self.__ext = os.path.splitext(filename)
     self.__dir                  = {
@@ -173,6 +174,12 @@ class Settings(object):
   def __setPartNumber(self, part_number):
     self.__part_number = part_number
   PART_NUMBER = property(__getPartNumber, __setPartNumber)
+
+  def __getPartImage(self):
+    return self.__part_image
+  def __setPartImage(self, part_image):
+    self.__part_image = part_image
+  PART_IMAGE = property(__getPartImage, __setPartImage)
 
   def __getSlide(self):
     return self.__slide
