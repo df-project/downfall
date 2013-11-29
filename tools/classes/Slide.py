@@ -391,6 +391,12 @@ class Slide(object):
     else:
       self.data["source_code"] = '<div class="highlight"><pre>' + \
         code + '</pre></div';
+    
+    code = self.data["source_code"].split("<pre>")
+    lines = code[1].split("</pre>")[0].split("\n")
+    # Delete the last line (empty line)
+    lines.pop()
+ 
     # Add number of lines
     if self.data.get("linenumber", True):
       code = self.data["source_code"].split("<pre>")
@@ -405,65 +411,66 @@ class Slide(object):
         lines[i] = '<span class="linenumber">' + str(cpt).zfill(digits) + \
                        '. </span>' + lines[i]
         cpt += 1
-      # If only parts of code selected
-      if "lines" in self.data:
-        tab_lines  = self.data["lines"].split(",")
-        selected_lines = []
-        for part in tab_lines:
-          p = part.strip().split("-")
-          if len(p) == 1:
-            selected_lines.append(int(p[0]))
-          else:
-            selected_lines += range(int(p[0]), int(p[1]) + 1)
-          # Insertion of "0" to delimit the portions by adding ...
-          if part != tab_lines[len(tab_lines) - 1]:
-            selected_lines.append(0)
-        new_lines = [];
-        for line in selected_lines:
-          if line == 0:
-            new_lines.append('<span class="linenumber">...</span>')
-          else:
-            new_lines.append(lines[line - 1])
-        lines = new_lines
-      # Explode multi lines codes
-      size = len(lines)
-      if size > 10:
-        # Compute number of slides
-        parts = size // 10
-        if size % 10 != 0:
-          parts += 1
-        # Update of the max counter of progress bar
-        if self.settings.CONSOLE_PROGRESS_BAR != None:
-          self.settings.CONSOLE_PROGRESS_BAR.incMax(parts + 1)
-          self.settings.CONSOLE_PROGRESS_BAR.incCurrent()
-        multilines = [lines[ i * 10: (i + 1) * 10] 
-                            for i in xrange(parts)]
-        text = self.data["text"]
-        for i in xrange(len(multilines)):
-          multilines[i] = "\n".join(multilines[i])
-          # Generate one slide for each group of code lines
-          self.data["source_code"] = code[0] + "<pre>" + multilines[i] + \
-              "</pre></div>"
-          self.data["type"] = "multicode"
-          if self.data.get("numberslide", False):
-            self.data["text"] = "%s (%d/%d)" % (text, i + 1, parts)
-          s = Slide(self.settings, self.data)
-          # slide and report generation
-         # self.settings.PROGRESS_BAR.decCurrent()
-          s.generate_all(self.settings.REPORT_ACTIVATED)
-      else:
-        # Creation of string from lines code
-        code[1] = "\n".join(lines)
-        self.data["source_code"] = "<pre>".join(code) + "</pre></div>"
+
+    # If only parts of code selected
+    if "lines" in self.data:
+      tab_lines  = self.data["lines"].split(",")
+      selected_lines = []
+      for part in tab_lines:
+        p = part.strip().split("-")
+        if len(p) == 1:
+          selected_lines.append(int(p[0]))
+        else:
+          selected_lines += range(int(p[0]), int(p[1]) + 1)
+        # Insertion of "0" to delimit the portions by adding ...
+        if part != tab_lines[len(tab_lines) - 1]:
+          selected_lines.append(0)
+      new_lines = [];
+      for line in selected_lines:
+        if line == 0:
+          new_lines.append('<span class="linenumber">...</span>')
+        else:
+          new_lines.append(lines[line - 1])
+      lines = new_lines
+    # Explode multi lines codes
+    size = len(lines)
+    if size > 10:
+      # Compute number of slides
+      parts = size // 10
+      if size % 10 != 0:
+        parts += 1
+      # Update of the max counter of progress bar
+      if self.settings.CONSOLE_PROGRESS_BAR != None:
+        self.settings.CONSOLE_PROGRESS_BAR.incMax(parts + 1)
+        self.settings.CONSOLE_PROGRESS_BAR.incCurrent()
+      multilines = [lines[ i * 10: (i + 1) * 10] 
+                          for i in xrange(parts)]
+      text = self.data["text"]
+      for i in xrange(len(multilines)):
+        multilines[i] = "\n".join(multilines[i])
+        # Generate one slide for each group of code lines
+        self.data["source_code"] = code[0] + "<pre>" + multilines[i] + \
+            "</pre></div>"
         self.data["type"] = "multicode"
+        if self.data.get("numberslide", False):
+          self.data["text"] = "%s (%d/%d)" % (text, i + 1, parts)
         s = Slide(self.settings, self.data)
         # slide and report generation
-        #self.settings.PROGRESS_BAR.decCurrent()
-        if self.settings.CONSOLE_PROGRESS_BAR != None:
-          self.settings.CONSOLE_PROGRESS_BAR.decCurrent()
+        # self.settings.PROGRESS_BAR.decCurrent()
         s.generate_all(self.settings.REPORT_ACTIVATED)
-      
-      self.settings.SLIDE -= 1
+    else:
+      # Creation of string from lines code
+      code[1] = "\n".join(lines)
+      self.data["source_code"] = "<pre>".join(code) + "</pre></div>"
+      self.data["type"] = "multicode"
+      s = Slide(self.settings, self.data)
+      # slide and report generation
+      #self.settings.PROGRESS_BAR.decCurrent()
+      if self.settings.CONSOLE_PROGRESS_BAR != None:
+        self.settings.CONSOLE_PROGRESS_BAR.decCurrent()
+      s.generate_all(self.settings.REPORT_ACTIVATED)
+    
+    self.settings.SLIDE -= 1
 
 
 
