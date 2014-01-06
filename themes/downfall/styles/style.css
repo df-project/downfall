@@ -250,6 +250,9 @@ blockquote .quotesource {
 		line-height:1.1;
 		font-size:40px;
 		}
+        .slide ul.exercise > li:before {
+		content:''; /* deactivate bullet*/
+		}
 	.slide ol > li:before {
 		counter-increment:list;
 		content:counter(list)'.';
