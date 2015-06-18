@@ -1,0 +1,22 @@
+<div id="{{id}}" class="slide">
+  <div>
+    <section>
+
+      <header>
+        <h2 class="center">{{title}}</h2>
+      </header>
+
+      {{#image}}
+      <img src="{{image}}" {{^frame}}class="middle {{#shadow}}shadow{{/shadow}} {{#roundcorner}}roundcorner{{/roundcorner}} {{#halfsizeimage}}halfsizeimage{{/halfsizeimage}}"{{/frame}} alt="image" />
+      {{/image}}
+
+      <small class="byline">
+        {{name}}{{#enterprise}}, {{enterprise}}{{/enterprise}}{{#logo}}, <img src="{{logo}}" alt="Logo" class="logo" />{{/logo}}{{#event}}, {{event}}{{/event}}{{#location}}, {{location}}{{/location}}{{#date}}, {{date}}{{/date}}
+      </small>
+
+      <footer class="notes">
+      </footer>
+
+    </section>
+  </div>
+</div>

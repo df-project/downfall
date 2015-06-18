@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en-US" class="fade ">
+
+  <head>
+    <title>Math presentation sample</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=1274, user-scalable=no" />
+    <script src="data/scripts/katex.min.js"></script>
+    <script src="data/scripts/auto-render.min.js"></script>
+    <link rel="stylesheet" href="data/style/katex.min.css">
+    <link rel="stylesheet" href="data/styles/style.css" />
+    <link rel="stylesheet" href="data/styles/code.css" />
+  </head>
+
+  <body class="list">
+
+    <header class="caption">
+      <h1>Math presentation sample</h1>
+      <p class="footer">
+        Tristan Colombo
+      </p>
+    </header>
+
+    <!--
+      Presentation slides
+    -->
+    <div id="slide_001" class="slide">
+  <div>
+    <section>
+
+      <header>
+        <h2 class="center">Math presentation sample</h2>
+      </header>
+
+
+      <small class="byline">
+        
+      </small>
+
+      <footer class="notes">
+      </footer>
+
+    </section>
+  </div>
+</div>
+<div id="slide_002" class="slide">
+  <div>
+    <section>
+
+      <header>
+        <h2>Mandelbrot</h2>
+      </header>
+
+      <ul class="inner">
+        <li class="active">Mandelbrot definition :</li>
+        <li>$$z_0 = 0$$</li>
+        <li>$$z_{n+1} = z_n^2 + c$$ with $$z = x + iy$$</li>
+        <li>Representation :</li>
+        <li>- If $$|z_i| \geq 2$$ : escapes to infinity and point with color $$i$$</li>
+        <li>- If $$|z_i| < 2$$ : belongs to the set and point in black</li>
+      </ul>
+
+      <footer class="notes">
+      </footer>
+
+    </section>
+  </div>
+</div>
+
+  
+    <!--
+      Insertion of a progress bar if needed
+    -->
+    <div class="progress"><div></div></div>
+
+    <script>
+        renderMathInElement(document.body);
+    </script>
+    <script src="data/scripts/script.js"></script>
+
+    <!-- Copyright (c) 2010-2012 Vadim Makeev - pepelsbey.net -->
+  </body>
+</html>

@@ -87,6 +87,13 @@ class Presentation(object):
     self.settings.TWITTER = self.doc.get("twitter", "")
 
 
+  def setExtensions(self):
+    """
+      Get extensions from yaml stream
+    """
+    self.settings.MATH = self.doc.get("math", "")
+
+
   def setTheme(self):
     """
       Get theme and copy of related data in presentation directory
@@ -278,6 +285,39 @@ class Presentation(object):
         (self.settings.DIR["scripts"],))
       exit(Error.IOError)
 
+    """
+      Copy KaTeX scripts if math selected
+    """
+    if self.settings.MATH:
+      # Create fonts sub-directory in styles directory
+      try:
+        if not os.path.exists(self.settings.DIR["styles"] + "/fonts"):
+          os.makedirs(self.settings.DIR["styles"] + "/fonts")
+      except IOError:
+        self.logger.critical("Can't create directory %s" %
+          (self.settings.DIR["styles"] + "/fonts",))
+        exit(Error.IOError)
+      # Copy scripts and style
+      try:
+        shutil.copy(self.settings.DIR['root'] + "cores/" + self.settings.CORE + 
+          "/extensions/katex/scripts/katex.min.js", self.settings.DIR["scripts"]) 
+        shutil.copy(self.settings.DIR['root'] + "cores/" + self.settings.CORE + 
+          "/extensions/katex/scripts/auto-render.min.js", self.settings.DIR["scripts"]) 
+        shutil.copy(self.settings.DIR['root'] + "cores/" + self.settings.CORE + 
+          "/extensions/katex/style/katex.min.css", self.settings.DIR["styles"])
+      except IOError:
+        self.logger.critical("Can't copy KaTeX scripts or styles in directory %s" %
+          (self.settings.DIR["scripts"],))
+        exit(Error.IOError)
+      # Copy fonts in styles/fonts directory
+      try:
+        distutils.dir_util.copy_tree(self.settings.DIR['root'] + "cores/" + 
+          self.settings.CORE + "/extensions/katex/style/fonts", 
+          self.settings.DIR["styles"] + "/fonts")  
+      except IOError:
+        self.logger.critical("Can't copy KaTeX font directory in data/styles/fonts directory")
+        exit(Error.IOFILE)
+
 
   def nextSlide(self):
     """
@@ -299,6 +339,7 @@ class Presentation(object):
            "author"       : self.settings.AUTHOR,
            "mail"         : self.settings.MAIL,
            "twitter"      : self.settings.TWITTER,
+           "math"         : self.settings.MATH,
            "transition"   : self.settings.TRANSITION, 
            "numbers"      : self.settings.NUMBERS}).encode('utf-8'))
     except IOError:
@@ -335,6 +376,8 @@ class Presentation(object):
           self.setTransition()
           # Detection of report labels modifications
           self.setLabels()
+          # Detection of extensions used
+          self.setExtensions()
           # Detection of table of contents and index report display
           self.setTOC_Index()
           # Load report template if needed

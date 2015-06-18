@@ -1,0 +1,25 @@
+\documentclass{df-report}
+
+{{=<% %>=}}
+\def\jobnameminted{<%path%>/<%filename%>}
+\def\pygfile{<%path%>}
+<%={{ }}=%>
+
+\begin{document}
+
+% -------------------- Title page -------------------------
+{{=<% %>=}}
+\titlePage[<%path%>/data/report/images/background]{<%title%>}
+{<%subtitle%>}{<%author%>}{} 
+<%={{ }}=%>
+
+% -------------------- Table of contents ------------------
+\tableofcontents
+
+% -------------------- Report -----------------------------
+{{{report}}}
+
+% -------------------- Index ------------------------------
+\displayIndex{}
+
+\end{document}

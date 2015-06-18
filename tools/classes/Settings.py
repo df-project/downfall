@@ -52,6 +52,7 @@ class Settings(object):
         self.__author               = ""
         self.__mail                 = ""
         self.__twitter              = ""
+        self.__math                 = ""
         self.__const                = None
         self.__progress_bar         = None
         self.__external             = ""
@@ -73,6 +74,7 @@ class Settings(object):
             "slides": presentation_dir + "/slides/",
             "report": presentation_dir + "/report/",
             "scripts": presentation_dir + "/data/scripts",
+            "styles": presentation_dir + "/data/styles",
         }
 
     def __get_theme(self):
@@ -218,6 +220,18 @@ class Settings(object):
         """
         self.__twitter = twitter
     TWITTER = property(__get_twitter, __set_twitter)
+
+    def __get_math(self):
+        """
+            Accessor for the math attribute 
+        """
+        return self.__math
+    def __set_math(self, math):
+        """
+            Modifier for the math attribute 
+        """
+        self.__math = math
+    MATH = property(__get_math, __set_math)
 
     def __get_const(self):
         """

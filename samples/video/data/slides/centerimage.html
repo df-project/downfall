@@ -1,0 +1,30 @@
+<div id="{{id}}" class="slide">
+  <div>
+    <section>
+ 
+     <header>
+        <h2>{{text}}</h2>
+      </header>
+
+      {{#frame}}
+      <figure class="{{#shadow}}shadow{{/shadow}} middle frame {{#anime}}swing{{/anime}}">
+      {{/frame}}
+        <img src="{{image}}" {{^frame}}class="middle {{#shadow}}shadow{{/shadow}} {{#roundcorner}}roundcorner{{/roundcorner}} {{#halfsizeimage}}halfsizeimage{{/halfsizeimage}}"{{/frame}} alt="image" />
+      {{#frame}}
+      </figure>
+      {{/frame}}
+
+      {{#include_credits}}
+      <small class="credits">
+        <a href="{{credit_link}}">
+          {{credit}}
+        </a>
+      </small>      
+      {{/include_credits}}
+
+      <footer class="notes">
+      </footer>
+
+    </section>
+  </div>
+</div>

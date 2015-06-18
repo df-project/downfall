@@ -1,0 +1,33 @@
+# DownFall
+---
+theme: downfall
+core:  downfall
+progressbar: True
+numbers: True
+transition: fade
+math: True
+
+author: Tristan Colombo
+title: Math presentation sample
+
+# Optional
+created: 18/06/2015
+modified: 18/06/2015
+tags: downfall, math, KaTeX
+
+# slide 1
+---
+type: cover
+title: Math presentation sample
+
+# slide 2 : Mandelbrot
+---
+type: animatedlist
+text: Mandelbrot
+list: |
+  Mandelbrot definition :
+  $$z_0 = 0$$
+  $$z_{n+1} = z_n^2 + c$$ with $$z = x + iy$$
+  Representation :
+  - If $$|z_i| \geq 2$$ : escapes to infinity and point with color $$i$$
+  - If $$|z_i| < 2$$ : belongs to the set and point in black

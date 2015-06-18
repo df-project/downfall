@@ -1,0 +1,1 @@
+Empty directory used to store external presentation videos.

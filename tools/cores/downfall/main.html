@@ -5,6 +5,11 @@
     <title>{{title}}</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=1274, user-scalable=no" />
+    {{#math}}
+    <script src="{{path}}data/scripts/katex.min.js"></script>
+    <script src="{{path}}data/scripts/auto-render.min.js"></script>
+    <link rel="stylesheet" href="{{path}}data/style/katex.min.css">
+    {{/math}}
     <link rel="stylesheet" href="{{path}}data/styles/style.css" />
     <link rel="stylesheet" href="{{path}}data/styles/code.css" />
     {{#report}}
@@ -36,8 +41,14 @@
       Insertion of a progress bar if needed
     -->
     {{{progressbar}}}
-  
+
+    {{#math}}
+    <script>
+        renderMathInElement(document.body);
+    </script>
+    {{/math}}
     <script src="{{path}}data/scripts/script.js"></script>
+
     <!-- Copyright (c) 2010-2012 Vadim Makeev - pepelsbey.net -->
   </body>
 </html>

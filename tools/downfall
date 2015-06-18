@@ -7,13 +7,13 @@
   Author: Tristan Colombo <tristan.colombo@info2dev.com>
                           (@TristanColombo)
 
-  Date: 10-25-2012 
+  Date: 10-25-2012
 
   Last modification: 09-30-2013
 
   Licence: GNU GPL v3
 """
-
+print
 import os
 import argparse
 import yaml
@@ -47,13 +47,13 @@ def compute_nb_slides(filename, counter = None):
   """
   if counter == None:
     counter = 0
-  
+
   try:
     f = file(filename, "r")
   except IOError:
     main_logger.critical("No file %s found" % (filename,))
     exit(Error.IOError)
-  
+
   stream, length_stream = itertools.tee(yaml.load_all(f))
   for slide in length_stream:
     if "type" in slide:
@@ -67,7 +67,7 @@ def compute_nb_slides(filename, counter = None):
         counter = compute_nb_slides(filename, counter)
       else:
         counter += 1
-  
+
   return counter
 
 
@@ -92,7 +92,7 @@ def generate(args):
     exit(Error.IOError)
 
   stream = yaml.load_all(f)
- 
+
   # Initialization of the presentation including the path of the current script
   settings = Settings(args.filename, os.path.abspath(os.path.dirname(__file__))
       + '/')
@@ -136,7 +136,7 @@ def clean(args):
     ..todo: Complete the function
   """
   presentation = args.dirname.split("/")[-1]
-  main_logger.info("Cleaning presentation %s : directory %s" % (presentation, 
+  main_logger.info("Cleaning presentation %s : directory %s" % (presentation,
     args.dirname,))
   # Removing files
   for fic in (".aux", ".log", ".fdb_latexmk", ".tex", ".ptc", ".toc", ".idx",
@@ -145,7 +145,7 @@ def clean(args):
       main_logger.info("Removing %s/%s" % (args.dirname, presentation + fic,))
       os.remove("%s/%s" % (args.dirname, presentation + fic))
     except OSError:
-      main_logger.error("File %s/%s not found" % (args.dirname, 
+      main_logger.error("File %s/%s not found" % (args.dirname,
         presentation + fic))
   # Removing specific files
   for fic in ("df-report.cls",):
@@ -172,7 +172,7 @@ if __name__ == "__main__":
   main_logger.setLevel(logging.INFO)
 
   filehandler = logging.handlers.RotatingFileHandler(
-    os.path.abspath(os.path.dirname(__file__)) + "/../log/downfall.log", 
+    os.path.abspath(os.path.dirname(__file__)) + "/../log/downfall.log",
     maxBytes = 102400, backupCount = 5)
   filehandler.setLevel(logging.ERROR)
   filehandler.setFormatter(logging.Formatter("%(asctime)s - %(name)s - \
@@ -192,13 +192,13 @@ if __name__ == "__main__":
   subparsers = parser.add_subparsers(help="commands")
 
   """
-    Definition of the "generate" command 
+    Definition of the "generate" command
   """
   generate_parser = subparsers.add_parser('generate', help="Generate a \
       presentation from a yaml file")
   generate_parser.add_argument("filename", action="store", help="The yaml \
       file containing the definition of the presentation")
-  generate_parser.add_argument("-r", "--report", action="store_true", 
+  generate_parser.add_argument("-r", "--report", action="store_true",
       default=False, dest="report", help="Generate associated report")
   generate_parser.add_argument("-q", "--quiet", action="store_true",
       default=False, dest="quiet", help="Deactivate verbose mode")
@@ -207,7 +207,7 @@ if __name__ == "__main__":
   generate_parser.set_defaults(func = generate)
 
   """
-    Definition of the "clean" command 
+    Definition of the "clean" command
   """
   clean_parser = subparsers.add_parser('clean', help="Clean a \
       slideshow directory")
